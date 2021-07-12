@@ -24,7 +24,7 @@ public class Person {
     private Long id;
 
     @Column(nullable = false)
-    private String fisrtName;
+    private String firstName;
 
     @Column(nullable = false)
     private String lastName;
