@@ -1,12 +1,9 @@
 package org.digitalinnovation.personapi.entity;
 
-import io.micrometer.core.instrument.internal.Mergeable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.digitalinnovation.personapi.enums.PhoneType;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.time.LocalDate;
