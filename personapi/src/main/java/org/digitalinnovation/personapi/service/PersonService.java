@@ -1,11 +1,11 @@
 package org.digitalinnovation.personapi.service;
 
 import lombok.AllArgsConstructor;
-import org.digitalinnovation.personapi.dto.MessageresponseDTO;
+import org.digitalinnovation.personapi.dto.MessageResponseDTO;
+import org.digitalinnovation.personapi.dto.PersonMapper;
 import org.digitalinnovation.personapi.dto.request.PersonDTO;
 import org.digitalinnovation.personapi.entity.Person;
 import org.digitalinnovation.personapi.exception.PersonNotFoundException;
-import org.digitalinnovation.personapi.mapper.PersonMapper;
 import org.digitalinnovation.personapi.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +19,10 @@ public class PersonService {
 
     private final PersonRepository personRepository;
 
-    private final PersonMapper personMapper = PersonMapper.INSTANCE;
+    private final PersonMapper personMapper;
 
-    public MessageresponseDTO createPerson(PersonDTO personDTO){
+    public MessageResponseDTO createPerson(PersonDTO personDTO){
         Person personToSave = personMapper.toModel(personDTO);
-
         Person savedPerson = personRepository.save(personToSave);
         return createMessageResponse(savedPerson.getId(), "Created Person  with ID ");
     }
@@ -45,7 +44,7 @@ public class PersonService {
         personRepository.deleteById(id);
     }
 
-    public MessageresponseDTO updateById(Long id, PersonDTO personDTO) throws PersonNotFoundException {
+    public MessageResponseDTO updateById(Long id, PersonDTO personDTO) throws PersonNotFoundException {
 
         verifyIfExists(id);
         Person personToUpdate = personMapper.toModel(personDTO);
@@ -59,8 +58,8 @@ public class PersonService {
                 .orElseThrow(() -> new PersonNotFoundException(id));
     }
 
-    private MessageresponseDTO createMessageResponse(Long id, String message) {
-        return MessageresponseDTO
+    private MessageResponseDTO createMessageResponse(Long id, String message) {
+        return MessageResponseDTO
                 .builder()
                 .message(message + id)
                 .build();
